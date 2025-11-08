@@ -36,7 +36,7 @@ A Python script that fetches cryptocurrency prices from CoinGecko, calculates ke
 ## 🧩 Key Code Structure | ساختار اصلی کد
 
 ```python
-# --- محاسبه اندیکاتورها ---
+
 df["EMA_short"] = df["close"].ewm(span=3, adjust=False).mean()
 df["EMA_long"]  = df["close"].ewm(span=5, adjust=False).mean()
 
@@ -44,7 +44,7 @@ df["RSI"] = compute_rsi(df["close"], period=3)
 
 df["MACD"], df["MACD_signal"] = compute_macd(df["close"])
 
-# --- تولید سیگنال خرید/فروش/نگه‌داری ---
+
 def generate_signal(row):
     if row["EMA_short"] > row["EMA_long"] and row["RSI"] < 70 and row["MACD"] > row["MACD_signal"]:
         return "BUY"
@@ -55,3 +55,4 @@ def generate_signal(row):
 
 df["Signal"] = df.apply(generate_signal, axis=1)
 print(df[["timestamp","close","Signal"]])
+
